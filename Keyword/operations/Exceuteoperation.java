@@ -13,7 +13,7 @@ public class Exceuteoperation {
 	public Properties readproperties() throws IOException
 	{
     InputStream properties=new FileInputStream(new File(System.getProperty("user.dir")+"\\Keyword\\chmobject\\object.properties"));
-//	InputStream stream = new FileInputStream(new File(System.getProperty("user.dir")+"\\src\\objects\\objectss.properties"));
+    InputStream stream = new FileInputStream(new File(System.getProperty("user.dir")+"\\src\\objects\\objectss.properties"));
     Allproperties.load(properties);
 	return Allproperties;	
 	}
