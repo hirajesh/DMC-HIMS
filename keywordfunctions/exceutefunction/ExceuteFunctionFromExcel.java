@@ -3,20 +3,29 @@ package exceutefunction;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import org.testng.internal.TestResult;
 
 import junit.framework.TestListener;
 import keypackage.Actionclass;
+
+
 
 
 public class ExceuteFunctionFromExcel {
@@ -30,11 +39,14 @@ public class ExceuteFunctionFromExcel {
 	public static Row getrows;
 	public static Actionclass Exceuteaction;
 	public static WebDriver driver;
+	public static	Row row ;
+	public static Cell cell;
+	public static ITestResult TestResults; 
 	
 	@Test
 	public static void ReadExcel_And_Run_Functions() throws IOException, InterruptedException {
 
-		ExcelFile=new File("C:\\Users\\Quality Analyst\\Desktop\\fuctions.xlsx");
+		ExcelFile=new File("D:\\Eclipse workspace\\KeywordDriven\\fuctions.xlsx");
 		ExcelFileInputStrame=new FileInputStream(ExcelFile);
 		ExcelWorkbook=new XSSFWorkbook(ExcelFileInputStrame);
 		ExcelSheet=ExcelWorkbook.getSheetAt(0);
@@ -48,13 +60,16 @@ public class ExceuteFunctionFromExcel {
 			{
 				Actionclass.OpenChrome();
 				System.out.println("===============================================");
-				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
+				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());	
+			
+				
 			}
 			else if(getrows.getCell(3).toString().trim().equalsIgnoreCase("GetCHMURL()"))
 			{
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.GetCHMURL();
+			
 
 			}
 			else if(getrows.getCell(3).toString().trim().equalsIgnoreCase("Loginchmapplication()"))
@@ -62,6 +77,7 @@ public class ExceuteFunctionFromExcel {
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.Loginchmapplication();
+			
 
 			}
 			else if(getrows.getCell(3).toString().trim().equalsIgnoreCase("CreateSite()"))
@@ -69,6 +85,7 @@ public class ExceuteFunctionFromExcel {
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.CreateSite();
+				
 
 			}
 			else if(getrows.getCell(3).toString().trim().equalsIgnoreCase("Edit_Site()"))
@@ -76,13 +93,14 @@ public class ExceuteFunctionFromExcel {
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.Edit_Site();
-
+			
 			}
 			else if(getrows.getCell(3).toString().trim().equalsIgnoreCase("Validate_Edit_Site()"))
 			{
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.Validate_Edit_Site();
+				
 			
 			}
 			else if(getrows.getCell(3).toString().trim().equalsIgnoreCase("Delete_Site()"))
@@ -90,6 +108,7 @@ public class ExceuteFunctionFromExcel {
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.Delete_Site();
+			
 		
 			}
 			
@@ -98,7 +117,6 @@ public class ExceuteFunctionFromExcel {
 				System.out.println("===============================================");
 				System.out.println("Test Case ID :-" +getrows.getCell(0).toString().trim()+"\nTest Scenario ID :-"+getrows.getCell(1).toString().trim()+"\nTest Case Description :-" +getrows.getCell(2).toString().trim());
 				Actionclass.Signout();
-				System.out.println("===============================================");
 			}
 			
 			
@@ -107,7 +125,28 @@ public class ExceuteFunctionFromExcel {
 		
 	}
 
-
-
+public static void UpdateStatus() throws IOException {
 	
+	if(TestResults.getStatus()==ITestResult.SUCCESS)
+	{
+		if (cell == null)
+			cell = ExcelSheet.getRow(i).createCell(4);
+			cell.setCellValue("PASS");
+	}
+	else
+	{
+		if (cell == null)
+			cell = ExcelSheet.getRow(i).createCell(4);
+			cell.setCellValue("FAIL");
+		
+	}
+	
+	FileOutputStream output=new FileOutputStream("C:\\Users\\Quality Analyst\\Desktop\\fuctions.xlsx");
+	ExcelWorkbook.write(output);
+    output.close();	
+
+
+}
+
+
 }

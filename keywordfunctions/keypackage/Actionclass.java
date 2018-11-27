@@ -1,13 +1,21 @@
 package keypackage;
 
+
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestContext;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
 
 public class Actionclass {
 
 	public static WebDriver driver;
 	public static String sitename;
+	public static ITestResult TestResult; 
+	
+
 	public static void OpenChrome() throws InterruptedException {
 
 		System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\New folder\\chromedriver.exe");
@@ -16,13 +24,13 @@ public class Actionclass {
 
 	}
 
+	
 	public static void GetCHMURL() throws InterruptedException {
 
 		driver.get("http://122.165.236.133/CHM01nov/#!");
 		Thread.sleep(2000);
-
 	}
-
+	
 	public static void Loginchmapplication() throws InterruptedException {
 
 		driver.findElement(By.xpath("//*[@id='txtlip']")).sendKeys("122.165.236.133");
@@ -35,7 +43,7 @@ public class Actionclass {
 		Thread.sleep(2000);
 
 	}
-
+	
 	public static void CreateSite() throws InterruptedException {
 		try {
 			Thread.sleep(2000);
@@ -59,7 +67,7 @@ public class Actionclass {
 		}
 
 	}
-
+	
 	public static void Edit_Site() throws InterruptedException {
 		driver.findElement(By.xpath("//*[@id='tblsite_filter']/label/input")).sendKeys("192.168.137.124");
 		Thread.sleep(2000);
@@ -73,7 +81,7 @@ public class Actionclass {
 		Thread.sleep(2000);
 	
 	}
-
+	
 	public static void Delete_Site() throws InterruptedException {
 		
 		driver.findElement(By.xpath("//*[@id='tblsite_filter']/label/input")).clear();
@@ -89,6 +97,7 @@ public class Actionclass {
 		driver.findElement(By.xpath("/html/body/div[3]/div[7]/div/button")).click();
 		Thread.sleep(2000);
 	}
+	
 	public static void Validate_Edit_Site() throws InterruptedException {
 		
 		driver.findElement(By.xpath("//*[@id='tblsite_filter']/label/input")).clear();
@@ -107,7 +116,7 @@ public class Actionclass {
 		}
 		
 	}
-
+	
 	public static void Signout() throws InterruptedException {
 		driver.findElement(By.xpath("//*[@id='topnav']/div[1]/div/div[2]/ul/li[4]/a/img")).click();
 		Thread.sleep(2000);

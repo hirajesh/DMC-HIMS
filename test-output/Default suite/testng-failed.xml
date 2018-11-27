@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testcases.ExecuetAll">
+      <class name="exceutefunction.ExceuteFunctionFromExcel">
         <methods>
-          <include name="Exceute"/>
+          <include name="ReadExcel_And_Run_Functions"/>
         </methods>
-      </class> <!-- testcases.ExecuetAll -->
+      </class> <!-- exceutefunction.ExceuteFunctionFromExcel -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
