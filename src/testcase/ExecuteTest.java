@@ -19,10 +19,12 @@ public class ExecuteTest {
 		System.setProperty("webdriver.chrome.driver","D:\\Selenium\\New folder\\chromedriver.exe"); 
 WebDriver webdriver = new ChromeDriver();
 webdriver.manage().window().maximize();
+
 ReadExcelData file = new ReadExcelData();
+UIOperation operation = new UIOperation(webdriver);
 Readobject object = new Readobject();
 Properties allObjects = object.ReadProperties();
-UIOperation operation = new UIOperation(webdriver);
+
 
 Sheet guru99Sheet = file.Read();
 
